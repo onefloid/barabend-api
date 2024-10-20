@@ -1,0 +1,432 @@
+---
+openapi: 3.0.3
+security:
+  - apiKey: []
+info:
+  version: '1.0'
+  title: Barabend API
+  description: This is the api for barabend.com.
+  contact:
+    name: barabend.com
+    url: https://github.com/onefloid
+servers:
+- url: "/api/v1"
+  description: Version one api
+paths:
+  "/bar":
+    post:
+      tags:
+      - bar
+      summary: Create bar
+      operationId: createBar
+      x-mojo-name: create_bar
+      x-mojo-to:
+        controller: Bar
+        action: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Bar'
+      responses:
+        '201':
+          description: Bars
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bar'
+    get:
+      tags:
+      - bar
+      summary: Get bars
+      operationId: getBars
+      x-mojo-name: get_bars
+      x-mojo-to:
+        controller: Bar
+        action: read
+      security:
+        - {}
+        - apiKey: []
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: integer
+        - name: bar_name
+          in: query
+          schema:
+            type: string
+        - name: city
+          in: query
+          schema:
+            type: string
+        - name: district
+          in: query
+          schema:
+            type: string
+        - name: plz
+          in: query
+          schema:
+            type: string
+        - name: street
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Bars
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Bar'
+    put:
+      tags:
+      - bar
+      summary: Update bar
+      operationId: updateBars
+      x-mojo-name: update_bars
+      x-mojo-to:
+        controller: Bar
+        action: update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Bar'
+      responses:
+        '200':
+          description: Bars
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Bar'
+    delete:
+      tags:
+      - bar
+      summary: Delete bar
+      operationId: deleteBar
+      x-mojo-name: delete_bar
+      x-mojo-to:
+        controller: Bar
+        action: delete
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Bar'
+      responses:
+        '200':
+          description: Bars
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Bar'  
+  "/bar/random":
+    get:
+      tags:
+      - bar
+      summary: Get a random bar
+      operationId: getRandomBar
+      x-mojo-name: get_random_bar
+      x-mojo-to:
+        controller: Bar
+        action: random
+      security:
+        - {}
+        - apiKey: []
+      responses:
+        '200':
+          description: Bars
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Bar'
+  "/bar/{id}":
+    get:
+      tags:
+      - bar
+      summary: Get a specific bar by id
+      operationId: getBarById
+      x-mojo-name: get_bar_by_id
+      x-mojo-to:
+        controller: Bar
+        action: read
+      security:
+        - {}
+        - apiKey: []
+      parameters:
+        - name: id
+          in: path
+          description: ID of of bar
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Bars
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Bar'
+  "/district":
+    get:
+      tags:
+      - district
+      summary: Get all used districts
+      operationId: getAllDistricts
+      x-mojo-name: get_all_districts
+      x-mojo-to:
+        controller: District
+        action: read
+      security:
+        - {}
+        - apiKey: []
+      responses:
+        '200':
+          description: Districts
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/District'
+  "/drink":
+    get:
+      tags:
+      - drink
+      summary: Get all drinks
+      operationId: getAllDrinks
+      x-mojo-name: get_all_drinks
+      x-mojo-to:
+        controller: Drink
+        action: read
+      security:
+        - {}
+        - apiKey: []
+      responses:
+        '200':
+          description: Drinks
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Drink'                
+  "/drink/{id}":
+    get:
+      tags:
+      - drink
+      summary: Get a specific drink by id
+      operationId: getDrinkById
+      x-mojo-name: get_drink_by_id
+      x-mojo-to:
+        controller: Drink
+        action: read
+      security:
+        - {}
+        - apiKey: []
+      parameters:
+        - name: id
+          in: path
+          description: ID of a drink
+          required: true
+          schema:
+            type: integer        
+      responses:
+        '200':
+          description: A
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Drink'
+  "/login":
+    post:
+      tags:
+      - auth
+      summary: Authenticate with user and password to access an api key
+      operationId: login
+      x-mojo-name: login
+      x-mojo-to:
+        controller: Auth
+        action: login
+      security:
+        - {}
+        - apiKey: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credentials'
+      responses:
+        '200':
+          description: A
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Username or password wrong!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  "/logout":
+    post:
+      tags:
+      - auth
+      summary: Logout please note that api key is valid for 1 hour.
+      operationId: logout
+      x-mojo-name: logout
+      x-mojo-to:
+        controller: Auth
+        action: end_session
+      responses:
+        '200':
+          description: Successfully logout
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  loggedIn:
+                    type: integer
+  "/session-info":
+    get:
+      tags:
+      - auth
+      summary: Info about the current session and user
+      operationId: sessionInfo
+      x-mojo-name: session-info
+      x-mojo-to:
+        controller: Auth
+        action: session_info
+      responses:
+        '200':
+          description: Current session and user info
+          content:
+            application/json:
+              schema:
+                 $ref: '#/components/schemas/User'
+components:
+  schemas:
+    Bar:
+      type: object
+      additionalProperties: false
+      properties:
+        bar_id:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 1024
+        bar_name:
+          type: string
+          maxLength: 50
+          pattern: (?i)^([A-Z]|[0-9]|Ö|Ü|Ä|ß|\s|\.|\-|\/|\,|\&|\'|\:|\+)*$
+        street:
+          type: string
+          maxLength: 50
+          pattern: (?i)^([A-Z]|[0-9]|Ö|Ü|Ä|ß|\s|\.|\-|\/|\,)*$
+        district:
+          $ref: '#/components/schemas/District'
+        city:
+          type: string
+          maxLength: 25
+          pattern: (?i)^([A-Z]|Ö|Ü|Ä|ß|\s|\-)*$
+        plz:
+          type: string
+          maxLength: 5
+          pattern: ^[0-9]{5}$
+        description:
+          type: string
+          maxLength: 1000
+        drinks:
+          type: array
+          nullable: true
+          items:
+            type: string
+    Credentials:
+      type: object
+      additionalProperties: false
+      properties:
+        user_name:
+          $ref: '#/components/schemas/Username'
+        password:
+          type: string
+          format: password
+          minLength: 8
+          maxLength: 50
+          pattern: (?i)^([A-Z]|[0-9]|\+|\-|\#|\$)*$
+    District: 
+          type: string
+          maxLength: 25
+          pattern: (?i)^([A-Z]|Ö|Ü|Ä|ß|\s|\-)*$
+    Drink:
+      type: object
+      additionalProperties: false
+      properties:
+        drink_id:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 1024
+        drink_name:
+          type: string
+          minLength: 1
+          maxLength: 20
+          pattern: (?i)^([A-Z])*$
+    User:
+      type: object
+      additionalProperties: false
+      properties:
+        user_id:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 1024
+        user_name:
+          $ref: '#/components/schemas/Username'
+        role_id:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 3
+        X-Api-Key:
+          type: string
+          minLength: 100
+          maxLength: 200
+          pattern: (?i)^[A-Z0-9-_]*\.[A-Z0-9-_]*\.[A-Z0-9-_]*$
+    Username:
+      type: string
+      minLength: 1
+      maxLength: 20
+      pattern: (?i)^([A-Z]|[0-9])*$
+    Error: 
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: integer
+        errors:
+          type: array
+          maxItems: 100
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+              path:
+                type: string
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+

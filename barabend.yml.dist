@@ -1,0 +1,6 @@
+---
+secrets:
+  - <%= $ENV{barabend_mojo_secret} %>
+dsn: 'dbi:mysql:database=barabend;host=localhost;port=3306'
+sql_user: 'barabend'
+sql_pw: <%= $ENV{barabend_sql_pw} %>
