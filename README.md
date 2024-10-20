@@ -1,11 +1,8 @@
 # Barabend
 
-This is the source code for the API behind barabend.com. Barabend.com provides the user with a lot of usefull information about bars.
+This is the source code for the API behind <barabend.com>. <Barabend.com> provided the user with a lot of usefull information about bars.
 The backend is written in Perl and uses the Webframework Mojolicious.
 
-Docs
-
-API Documentation available under https://barabend.com/api
 
 ## Prerequesits
 
@@ -18,7 +15,7 @@ You need
 Clone this repository
 
 ```
-git clone git@github.com:tinaCanCode/barabend.git
+git clone git@github.com:onefloid/barabend-api.git
 ```
 
 Then install the dependencies with [cpanm](https://metacpan.org/pod/cpanm)
