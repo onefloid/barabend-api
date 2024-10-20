@@ -7,7 +7,7 @@ The backend is written in Perl and uses the Webframework Mojolicious.
 ## Prerequesits
 
 You need 
-* at least [Perl 5.20](https://perl.org)
+* at least [Perl 5.26](https://perl.org)
 * a MariaDB (recommended) or MySQL database
 
 ## Installation

@@ -1,4 +1,4 @@
-requires 'Mojolicious' => 9;
+requires 'Mojolicious' => 9.38;
 requires 'DBIx::Class';
 requires 'DBIx::Class::Helper::Row::ToJSON';
 requires 'Mojolicious::Plugin::NotYAMLConfig';
